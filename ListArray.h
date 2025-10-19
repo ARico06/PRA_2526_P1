@@ -1,4 +1,4 @@
-#include <iostream>
+#include <ostream>
 #include "List.h"
 using namespace std;
 
@@ -21,10 +21,10 @@ class ListArray : public List<T> {
 	public:
 		ListArray();
 		~ListArray();
-		int size(){
+		int size() override{
 			return n;
 		}
-		void insert(int pos, T element){
+		void insert(int pos, T element) override{
 			if(pos<0||pos>size()-1){
 				throw out_of_range("Posicion no valida");
 			}
@@ -38,15 +38,15 @@ class ListArray : public List<T> {
 			arr[pos] = element;
 		}
 
-                void append(T element){
+                void append(T element) override{
 			insert(n, element);
 		}
 
-                void prepend(T element){
+                void prepend(T element) override{
 			insert(0, element);
 		}
 
-                T remove(int pos){
+                T remove(int pos) override{
 			if(pos<0||pos>size()-1){	
 				throw out_of_range("Posicion no valida");
 			}
@@ -57,13 +57,13 @@ class ListArray : public List<T> {
 			return aux;
 		}
 
-                T get(int pos){
+                T get(int pos) override{
 			if(pos<0 || pos>size()-1){
 				throw out_of_range("Posicion no valida");
 			}
 			return arr[pos];
 		}
-		int search(T element){
+		int search(T element) override{
 			for(int i=0;i<n;i++){
 				if(arr[i]==element){
 					return i;
@@ -72,9 +72,23 @@ class ListArray : public List<T> {
 			return -1;
 		}
 
-                bool empty(){
+                bool empty() override{
 		       if(n!=0){
 		       		return true;
 		 	}else{return false;}
 		}
+
+		T operator[](int pos){
+			return get(pos);
+		}
+
+		friend std::ostream& operator<<(std::ostream &out, const ListArray<T> &list){
+			out<<"List --> [";
+			for(int i=0; i<list.n;i++){
+				out<<list.arr[i];
+			}
+			out<<"]\n";
+			return out;
+		}
+
 };
