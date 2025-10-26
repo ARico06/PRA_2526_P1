@@ -19,12 +19,14 @@ class ListLinked : public List<T>{
 		}
 
 		~ListLinked(){
+			Node<T>* aux = first;
 			for(int i=0;i<n;i++){
-				Node<T>* aux = new Node<T>;
-				aux = first->next;
-				delete[]first;
-				first = aux;
+				Node<T>* aux2 = aux->next;
+				delete aux;
+				aux = aux2;
 			}
+			first = nullptr;
+			n = 0;
 		}
 
 
@@ -49,13 +51,8 @@ class ListLinked : public List<T>{
 					newElement->next = aux->next;
 				}
 				aux->next = newElement;
-				if(pos==1){
-					first->next = newElement;
-				}
-				
 			}
 			n++;
-
 		}
 
                 void append(T element)override{
@@ -73,6 +70,14 @@ class ListLinked : public List<T>{
 				T data_out;
 				Node<T>* aux = first;
 				Node<T>* aux2 = nullptr;
+				if(pos==0){
+					data_out = aux->data;
+					aux2 = aux->next;
+					delete aux;
+					first = aux2;
+					n--;
+					return data_out;
+				}
 				for(int i=0; i<pos;i++){
 					aux = aux->next;
 				}
@@ -113,8 +118,8 @@ class ListLinked : public List<T>{
 
                 bool empty()override{
 		       if(n!=0){
-		       		return true;
-		 	}else{return false;}
+		       		return false;
+		 	}else{return true;}
 		}
 
 		T operator[](int pos){
@@ -122,7 +127,7 @@ class ListLinked : public List<T>{
 		}
 		
 		friend ostream& operator<<(ostream &out, const ListLinked<T> &list){
-			Node<T>* aux = list->first;
+			Node<T>* aux = list.first;
 			out<<"ListLinked --> [";
 			for(int i=0; i<list.n; i++){
 				out<<aux->data<<" ";
