@@ -39,17 +39,17 @@ class ListLinked : public List<T>{
 			}
 			Node<T>* newElement = new Node<T>(element, nullptr);
 			Node<T>* aux = first;
-			
-			for(int i=0;i<pos-1;i++){
-				aux = aux->next;
-			}
 			if(pos==0){
-				first = newElement;
-				first->next = aux;
+                                newElement->next = first;
+                                first = newElement;
 			}else{
+				for(int i = 0; i<pos-1;i++){
+					aux = aux->next;
+				}
 				if(aux!=nullptr){
 					newElement->next = aux->next;
 				}
+				newElement->next = aux->next;
 				aux->next = newElement;
 			}
 			n++;
@@ -87,7 +87,7 @@ class ListLinked : public List<T>{
 				}
 				data_out = aux->data;
 				aux2->next = aux->next;
-				delete[]aux;
+				delete aux;
 				n--;
 				return data_out;
 			}
