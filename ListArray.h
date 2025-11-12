@@ -24,7 +24,7 @@ class ListArray : public List<T> {
 		int size(){
 			return n;
 		}
-		void insert(int pos, T element){
+		void insert override(int pos, T element){
 			if(pos<0||pos>size()-1){
 				throw out_of_range("Posicion no valida");
 			}
@@ -38,15 +38,15 @@ class ListArray : public List<T> {
 			arr[pos] = element;
 		}
 
-                void append(T element){
+        void append override(T element){
 			insert(n, element);
 		}
 
-                void prepend(T element){
+        void prepend override(T element){
 			insert(0, element);
 		}
 
-                T remove(int pos){
+        T remove override(int pos){
 			if(pos<0||pos>size()-1){	
 				throw out_of_range("Posicion no valida");
 			}
@@ -57,13 +57,13 @@ class ListArray : public List<T> {
 			return aux;
 		}
 
-                T get(int pos){
+        T get override(int pos){
 			if(pos<0 || pos>size()-1){
 				throw out_of_range("Posicion no valida");
 			}
 			return arr[pos];
 		}
-		int search(T element){
+		int search override(T element){
 			for(int i=0;i<n;i++){
 				if(arr[i]==element){
 					return i;
@@ -72,7 +72,7 @@ class ListArray : public List<T> {
 			return -1;
 		}
 
-                bool empty(){
+        bool empty override(){
 		       if(n!=0){
 		       		return true;
 		 	}else{return false;}
