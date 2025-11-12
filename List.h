@@ -7,13 +7,13 @@ template<typename T>
 
 class List {
 	public:
-		void insert(int pos, T element); //inserta element en pos
-		void append(T element);//inserta element al principio de la lista
-		void prepend(T element);//inserta element al final de la lista
-		T remove(int pos); //elimina el elemento en pos y lo devuelve. Lanza out_of_range si pos no es valida.
-		T get(int pos);//devuelve el elemento en pos (OOR)
-		bool empty(); //¿lista vacia?
-		int size();//num. elementos de la lista
+		virtual void insert(int pos, T element)=0; //inserta element en pos
+		virtual void append(T element)=0;//inserta element al principio de la lista
+		virtual void prepend(T element)=0;//inserta element al final de la lista
+		virtual T remove(int pos)=0; //elimina el elemento en pos y lo devuelve. Lanza out_of_range si pos no es valida.
+		virtual T get(int pos)=0;//devuelve el elemento en pos (OOR)
+		virtual bool empty()=0; //¿lista vacia?
+		virtual int size()=0;//num. elementos de la lista
 };
 
 #endif
